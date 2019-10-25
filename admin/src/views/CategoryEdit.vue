@@ -55,7 +55,6 @@ export default {
     },
     async fatchParents(){
       const res = await this.$http.get(`rest/categories`)
-      console.log(res)
       this.parents = res.data
     }
   },

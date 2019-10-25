@@ -5,6 +5,7 @@ const app = express()
 
 app.use(require('cors')())
 app.use(express.json())
+app.use('/uploads',express.static('uploads'))
 
 require('./plugins/db')(app)
 require('./routes/admin/index')(app)

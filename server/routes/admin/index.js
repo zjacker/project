@@ -15,7 +15,6 @@ module.exports = app => {
     if(req.model.modelName === 'Category'){
       options.populate =  'parent'
     }
-    console.dir(req.model.modelName)
     const items = await req.model.find().setOptions(options)
     res.send(items)
   })
@@ -43,4 +42,13 @@ module.exports = app => {
     req.model = require(`../../models/${inflection.classify(req.params.resource)}`)
     next()
   }, router)
+
+  const multer = require('multer')
+  const upload = multer({dest: __dirname + '/../../uploads'})
+
+  app.post('/admin/api/upload', upload.single('file'), async (req,res)=>{
+    const file = req.file
+    file.url = `http://localhost:3000/uploads/${file.filename}`
+    res.send(file)
+  })
 }
